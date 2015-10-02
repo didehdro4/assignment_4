@@ -1,18 +1,43 @@
+var x = [];
+
 function setup() {
-	// create a place to draw
-	createCanvas(640, 360);
-	noStroke();
-	noLoop();
+  createCanvas(640, 480);
+  noStroke();
+  fill(43, 255, 255);
+  // Create objects
+  for (var i=0; i<60; i++) {
+    x.push(new Jitter());
+  }
 }
 
 function draw() {
-	// clear the background
-	background(150, 50, 50);
+  background(164, 4, 0);
+  for (var i=0; i<x.length; i++) {
+    if (mouseIsPressed) {
+      background(100, 50, 0);
+      x[i].move();
+      x[i].display();
 
-	// set a fill color
-	fill(255, 255, 255);
 
-	// draw the ellipse
-	var diameter = random(100, 200);
-	ellipse(320, 180, diameter, diameter);
+    } else {
+      x[i].move();
+      x[i].display();
+    }
+  }
+}
+
+function Jitter() {
+  this.x = random(width);
+  this.y = random(height);
+  this.diameter = random(10, 30);
+  this.speed = 5;
+
+  this.move = function() {
+    this.x += random(-this.speed, this.speed);
+    this.y += random(-this.speed, this.speed);
+  };
+
+  this.display = function() {
+    ellipse(this.x, this.y, this.diameter, this.diameter);
+  };
 }
